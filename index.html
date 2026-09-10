@@ -429,7 +429,7 @@
             </header>
 
             <div class="topology-grid reveal">
-              <article class="topology-card" tabindex="0" aria-label="Topología en estrella">
+              <article class="topology-card is-active" data-topology="estrella" tabindex="0" aria-selected="true" aria-label="Topología en estrella">
                 <div class="badge">Estrella</div>
                 <svg viewBox="0 0 220 140" role="img" aria-label="Topología estrella">
                   <circle cx="110" cy="38" r="20" fill="#7dd3fc" />
@@ -447,7 +447,7 @@
                 <p>Todos los dispositivos convergen en un dispositivo central; es la más utilizada en redes modernas.</p>
               </article>
 
-              <article class="topology-card" tabindex="0" aria-label="Topología en anillo">
+              <article class="topology-card" data-topology="anillo" tabindex="0" aria-selected="false" aria-label="Topología en anillo">
                 <div class="badge">Anillo</div>
                 <svg viewBox="0 0 220 140" role="img" aria-label="Topología anillo">
                   <circle cx="110" cy="70" r="42" fill="none" stroke="#4f93de" stroke-width="4" stroke-dasharray="8 6" />
@@ -465,7 +465,7 @@
                 <p>Los nodos están conectados en forma circular, y cada equipo retransmite la señal hacia el siguiente.</p>
               </article>
 
-              <article class="topology-card" tabindex="0" aria-label="Topología en bus">
+              <article class="topology-card" data-topology="bus" tabindex="0" aria-selected="false" aria-label="Topología en bus">
                 <div class="badge">Bus</div>
                 <svg viewBox="0 0 220 140" role="img" aria-label="Topología bus">
                   <path d="M 30 70 H 190" stroke="#4f93de" stroke-width="6" stroke-linecap="round" />
@@ -485,6 +485,28 @@
                 <p>Todos los nodos comparten un único canal de comunicación, pero puede ser más sensible a fallos o congestión.</p>
               </article>
             </div>
+
+            <aside class="topology-detail reveal" aria-live="polite" aria-labelledby="topologyDetailTitle">
+              <div>
+                <span class="eyebrow">Topología seleccionada</span>
+                <h3 id="topologyDetailTitle">Estrella</h3>
+                <p id="topologyDetailText">Los dispositivos se conectan a un punto central que facilita la administración y el diagnóstico de la red.</p>
+              </div>
+              <dl class="topology-facts">
+                <div>
+                  <dt>Ventaja</dt>
+                  <dd id="topologyAdvantage">Detectar fallos por dispositivo es sencillo.</dd>
+                </div>
+                <div>
+                  <dt>Riesgo</dt>
+                  <dd id="topologyRisk">Si falla el equipo central, la red puede quedar interrumpida.</dd>
+                </div>
+                <div>
+                  <dt>Uso habitual</dt>
+                  <dd id="topologyUse">Redes LAN modernas en hogares e instituciones.</dd>
+                </div>
+              </dl>
+            </aside>
           </div>
         </div>
       </section>
