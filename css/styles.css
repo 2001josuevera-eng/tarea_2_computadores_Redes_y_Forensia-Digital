@@ -637,6 +637,49 @@ th {
   color: var(--text);
 }
 
+.motivation-accordion {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.motivation-item {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--surface-strong);
+  overflow: hidden;
+}
+
+.motivation-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.motivation-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.motivation-item.is-open .motivation-content {
+  max-height: 280px;
+}
+
+.motivation-content p {
+  margin: 0;
+  padding: 0 1.1rem 1.1rem;
+}
+
 .toast {
   position: fixed;
   right: 1rem;

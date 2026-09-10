@@ -1,12 +1,12 @@
 const body = document.body;
 const themeToggle = document.getElementById('themeToggle');
 const shareButton = document.getElementById('shareButton');
-const authorButton = document.getElementById('authorButton');
 const modalBackdrop = document.getElementById('autor');
 const closeModalButton = document.getElementById('closeModalButton');
 const toast = document.getElementById('toast');
 const topologyCards = document.querySelectorAll('.topology-card');
 const revealElems = document.querySelectorAll('.reveal');
+const motivationTriggers = document.querySelectorAll('.motivation-trigger');
 
 function applyTheme(theme) {
   const isDark = theme === 'dark';
@@ -94,10 +94,6 @@ if (shareButton) {
 
 const authorNavLink = document.querySelector('a[href="#autor"]');
 
-if (authorButton) {
-  authorButton.addEventListener('click', openModal);
-}
-
 if (authorNavLink) {
   authorNavLink.addEventListener('click', (event) => {
     event.preventDefault();
@@ -147,5 +143,27 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 revealElems.forEach((element) => observer.observe(element));
+
+motivationTriggers.forEach((trigger) => {
+  trigger.addEventListener('click', () => {
+    const item = trigger.closest('.motivation-item');
+    const isOpen = item.classList.contains('is-open');
+
+    document.querySelectorAll('.motivation-item').forEach((entry) => {
+      entry.classList.remove('is-open');
+      const button = entry.querySelector('.motivation-trigger');
+      if (button) {
+        button.setAttribute('aria-expanded', 'false');
+        button.lastElementChild.textContent = '+';
+      }
+    });
+
+    if (!isOpen) {
+      item.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      trigger.lastElementChild.textContent = '−';
+    }
+  });
+});
 
 initializeTheme();
