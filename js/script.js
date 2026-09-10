@@ -56,6 +56,8 @@ if (themeToggle) {
 }
 
 if (shareButton) {
+  const originalText = shareButton.textContent;
+
   shareButton.addEventListener('click', async () => {
     const shareData = {
       title: 'Arquitectura de Computadores, Redes e Investigación de Ciberdelitos',
@@ -66,9 +68,13 @@ if (shareButton) {
     try {
       if (navigator.share) {
         await navigator.share(shareData);
+        shareButton.textContent = 'Compartido';
+        shareButton.setAttribute('aria-label', 'Contenido compartido');
         showToast('Contenido compartido correctamente');
       } else if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(window.location.href);
+        shareButton.textContent = 'Enlace copiado';
+        shareButton.setAttribute('aria-label', 'Enlace copiado');
         showToast('Enlace copiado correctamente');
       } else {
         const tempInput = document.createElement('input');
@@ -77,18 +83,29 @@ if (shareButton) {
         tempInput.select();
         document.execCommand('copy');
         document.body.removeChild(tempInput);
+        shareButton.textContent = 'Enlace copiado';
+        shareButton.setAttribute('aria-label', 'Enlace copiado');
         showToast('Enlace copiado correctamente');
       }
     } catch (error) {
       if (error.name !== 'AbortError') {
         try {
           await navigator.clipboard.writeText(window.location.href);
+          shareButton.textContent = 'Enlace copiado';
+          shareButton.setAttribute('aria-label', 'Enlace copiado');
           showToast('Enlace copiado correctamente');
         } catch (clipboardError) {
+          shareButton.textContent = 'No disponible';
+          shareButton.setAttribute('aria-label', 'No se pudo compartir ni copiar');
           showToast('No se pudo compartir ni copiar el enlace');
         }
       }
     }
+
+    setTimeout(() => {
+      shareButton.textContent = originalText;
+      shareButton.setAttribute('aria-label', 'Compartir sitio');
+    }, 1800);
   });
 }
 
@@ -120,10 +137,16 @@ if (modalBackdrop) {
 }
 
 topologyCards.forEach((card) => {
+  card.addEventListener('mouseenter', () => {
+    topologyCards.forEach((item) => item.classList.remove('is-active'));
+    card.classList.add('is-active');
+  });
+
   card.addEventListener('click', () => {
     topologyCards.forEach((item) => item.classList.remove('is-active'));
     card.classList.add('is-active');
   });
+
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
